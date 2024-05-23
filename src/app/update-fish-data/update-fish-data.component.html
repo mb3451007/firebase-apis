@@ -1,0 +1,26 @@
+<div class="form-container">
+    <form [formGroup]="updateForm">
+      <div class="form-group">
+        <label for="firstName">Date:</label>
+        <input id="firstName" formControlName="date" type="text" />
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName">Number Of Fish:</label>
+        <input id="lastName" formControlName="number_of_fish" type="text" />
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Location:</label>
+        <input id="email" formControlName="location" type="text" />
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Fish Type:</label>
+        <input id="password" formControlName="fish_type" type="text" />
+      </div>
+  
+      <button class="update-button" type="submit" (click)="updateFish()">Update</button>
+    </form>
+  </div>
+  
