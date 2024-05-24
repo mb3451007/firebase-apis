@@ -1,110 +1,124 @@
-<div class="registration-container">
-  <div *ngIf="showUser">
-  <h2>Registration</h2>
-  <form [formGroup]="registrationForm">
-    <label for="first-name">First Name:</label>
-    <input
-      type="text"
-      id="first-name"
-      formControlName="firstName"
-      name="firstName"
-      required
-    />
+<div *ngIf="showUser" class="registration-container">
+    <h2>Registration</h2>
+    <form [formGroup]="registrationForm">
+      <label for="first-name">First Name:</label>
+      <input
+        type="text"
+        id="first-name"
+        formControlName="firstName"
+        name="firstName"
+        required
+      />
 
-    <label for="last-name">Last Name:</label>
-    <input
-      type="text"
-      id="last-name"
-      formControlName="lastName"
-      name="lastName"
-      required
-    />
+      <label for="last-name">Last Name:</label>
+      <input
+        type="text"
+        id="last-name"
+        formControlName="lastName"
+        name="lastName"
+        required
+      />
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" formControlName="Email" name="email" required />
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="Email"
+        name="email"
+        required
+      />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="Password" name="password" required/>
-    <button type="submit" (click)="registerData()">Register</button>
-  </form>
-  <div class="link-area">
-    <a class="link" (click)="openFish()">Want to Add Fish? Click for Fish</a>
-</div>
-</div>
-</div>
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="Password"
+        name="password"
+        required
+      />
+      <button type="submit" (click)="registerData()">Register</button>
+    </form>
+    <div class="link-area">
+      <a class="link" (click)="openFish()">Want to Add Fish? Click for Fish</a>
+    </div>
+  </div>
 
 <!-- Fish -->
-<div class="registration-container">
-  <div *ngIf="!showUser">
-  <h2>Fishing Data</h2>
-  <form [formGroup]="fishForm">
-    <label for="first-name">Date:</label>
-    <input
-      type="text"
-      id="first-name"
-      formControlName="date"
-      name="firstName"
-      required
-    />
+<div *ngIf="!showUser" class="registration-container">
+    <h2>Fishing Data</h2>
+    <form [formGroup]="fishForm">
+      <label for="first-name">Date:</label>
+      <input
+        type="text"
+        id="first-name"
+        formControlName="date"
+        name="firstName"
+        required
+      />
 
-    <label for="last-name">Number of Fish:</label>
-    <input
-      type="text"
-      id="last-name"
-      formControlName="number_of_fish"
-      name="lastName"
-      required
-    />
+      <label for="last-name">Number of Fish:</label>
+      <input
+        type="text"
+        id="last-name"
+        formControlName="number_of_fish"
+        name="lastName"
+        required
+      />
 
-    <label for="email">Location:</label>
-    <input type="email" id="email" formControlName="location" name="email" required />
+      <label for="email">Location:</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="location"
+        name="email"
+        required
+      />
 
-    <label for="password">type of Fishes:</label>
-    <input type="password" id="password" formControlName="fish_type" name="password" required/>
-    <button type="submit" (click)="AddFishData()">Register Fish </button>
-  </form>
-  <div class="link-area">
-    <a class="link" (click)="openUser()">Want to Add User? Click for User</a>
+      <label for="password">type of Fishes:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="fish_type"
+        name="password"
+        required
+      />
+      <button type="submit" (click)="AddFishData()">Register Fish</button>
+    </form>
+    <div class="link-area">
+      <a class="link" (click)="openUser()">Want to Add User? Click for User</a>
+    </div>
   </div>
-</div>
-</div>
+
 
 <!--  -->
 
 <!-- Data Showw -->
 <div class="data">
   <div class="user-list-container">
-    <div *ngIf="showUser">
-    <h2>Registered Users</h2>
-    <ul>
-      <li *ngFor="let user of users">
-        {{ user.firstName }} {{ user.lastName }} - {{ user.Email }}
-        <button (click)="updateUserData(user.id)">Update User</button>
-        <button (click)="deleteData(user.id, 'registration')">
-          Delete User
-        </button>
-        <button (click)="getDataById(user.id, 'registration')">
-          Show User
-        </button>
-      </li>
-    </ul>
-  </div>
+      <h2>Registered Users</h2>
+      <ul>
+        <li *ngFor="let user of users">
+          {{ user.firstName }} {{ user.lastName }} - {{ user.Email }}
+          <button (click)="updateUserData(user.id)">Update User</button>
+          <button (click)="deleteData(user.id, 'registration')">Delete User</button>
+          <button (click)="getDataById(user.id, 'registration')">Show User</button>
+        </li>
+      </ul>
+      <button (click)="loadMoreUsers()">Load More Users</button>
+      </div>
+    <div class="user-list-container">
+      <h2>Fishing Data</h2>
+      <ul>
+        <li *ngFor="let fish of fishingData">
+          {{ fish.date }} {{ fish.fish_type }} - {{ fish.location }}
+          <button (click)="updateFishData(fish.id)">Update Fish</button>
+          <button (click)="deleteData(fish.id, 'fishing_data')">Delete Fish</button>
+          <button (click)="getDataById(fish.id, 'fishing_data')">Show Fish</button>
+        </li>
+      </ul>
+      <!-- <button (click)="loadMoreFish()">Load More Fish</button> -->
+    </div>
+</div>
 
-  <div class="user-list-container">
-    <h2>Fishing Data</h2>
-    <ul>
-      <li *ngFor="let fish of fishingData">
-        {{ fish.date }} {{ fish.fish_type }} - {{ fish.location }}
-        <button (click)="updateFishData(fish.id)">Update Fish</button>
-        <button (click)="deleteData(fish.id, 'fishing_data')">
-          Delete Fish
-        </button>
-        <button (click)="getDataById(fish.id, 'fishing_data')">
-          Show Fish
-        </button>
-      </li>
-    </ul>
-  </div>
-</div>
-</div>
+<button routerLink="/blogs">Click here for Blogs</button>
 <router-outlet></router-outlet>

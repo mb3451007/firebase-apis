@@ -1,0 +1,50 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.notification {
+  color: #dc3545;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-container {
+  margin-bottom: 20px;
+}
+
+.upload {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.upload-icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.upload-icons {
+  width: 30px;
+  height: 30px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* .image-preview img {
+  max-width: 100%;
+  height: auto;
+} */
+.image-preview img {
+  max-width: 200px; /* Adjust the maximum width as needed */
+  height: auto;
+}

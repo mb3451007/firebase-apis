@@ -27,6 +27,9 @@ export class UserService {
   // Add Data
 
   addData(collectionName: string,addedData: any): Promise<any> {
+    const id = this.firestore.createId();
+    addedData.id = id; // Add the auto-generated ID to the document data
+    addedData.createdAt = new Date(); // Add a timestamp to the document
     return this.firestore.collection(collectionName).add(addedData);
   }
 
@@ -51,4 +54,18 @@ export class UserService {
     return this.firestore.collection(collectionName).doc(id).get().pipe(map((actions) => {return actions.data()}))
   }
 
+
+    // Get paginated data from Firestore
+    getPaginatedData(collectionName: string, pageSize: number, lastDoc: any = null) {
+      console.log ('start after', lastDoc)
+      if (lastDoc) {
+        return this.firestore.collection(collectionName, ref => ref.orderBy('Email').startAfter(lastDoc).limit(pageSize)).snapshotChanges().pipe(
+          map(actions => actions.map(this.documentToDomainObject))
+        );
+      } else {
+        return this.firestore.collection(collectionName, ref => ref.orderBy('Email').limit(pageSize)).snapshotChanges().pipe(
+          map(actions => actions.map(this.documentToDomainObject))
+        );
+      }
+    }
 }

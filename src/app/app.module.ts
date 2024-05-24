@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +11,9 @@ import { environment } from '../environments/environment';
 import { UpdateDataComponent } from './update-data/update-data.component';
 import { UpdateFishDataComponent } from './update-fish-data/update-fish-data.component';
 import { LoaderComponent } from './loader/loader.component';
-
+import { BlogsComponent } from './blogs/blogs.component';
+import { QuillConfigModule } from 'ngx-quill';
+import { QuillModule } from 'ngx-quill';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +21,7 @@ import { LoaderComponent } from './loader/loader.component';
     UpdateDataComponent,
     UpdateFishDataComponent,
     LoaderComponent,
+    BlogsComponent,
    
   ],
   imports: [
@@ -28,8 +31,11 @@ import { LoaderComponent } from './loader/loader.component';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    QuillModule.forRoot()
+    
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,13 @@ import { LoaderService } from '../services/loader.service';
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent {
+  usersPage = 1;
+  fishPage = 1;
+  pageSize = 10;
+  lastUserDoc: any = null;
+  lastFishDoc: any = null;
+
+
   showUser=true;
   fishForm: FormGroup;
   registrationForm: FormGroup;
@@ -56,34 +63,37 @@ export class RegistrationComponent {
     this.loaderService.show();
     this.userId = this.activeRoute.snapshot.paramMap.get('id');
     console.log(this.userId, 'User id for Delete Button');
+    this.loadUserData();
 
     // Get Data from data base
-    try {
-      // Get users data
-      this.userService.getAllData('registration').subscribe((data: any) => {
-        console.log('User data received by One Method:', data);
-        this.users = data;
-        this.apiResponseCounter++;
-        this.checkAllResponsesReceived();
-      });
+
+    // try {
+    //   Get users data
+    //   this.userService.getAllData('registration').subscribe((data: any) => {
+    //     console.log('User data received by One Method:', data);
+    //     this.users = data;
+    //     this.apiResponseCounter++;
+    //     this.checkAllResponsesReceived();
+    //   });
 
       // Get fishing data
-      this.userService.getAllData('fishing_data').subscribe((response: any) => {
-        console.log('Fishing data received by One method:', response);
-        this.fishingData = response;
-        this.apiResponseCounter++;
-        this.checkAllResponsesReceived();
-      });
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    //   this.userService.getAllData('fishing_data').subscribe((response: any) => {
+    //     console.log('Fishing data received by One method:', response);
+    //     this.fishingData = response;
+    //     this.apiResponseCounter++;
+    //     // this.checkAllResponsesReceived();/
+    //   });
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
   }
-
+  
   // Add User Data
   registerData() {
     try {
       this.userService.addData('registration', this.registrationForm.value);
       console.log('User data added', this.registrationForm.value);
+      this.registrationForm.reset();
     } catch (error) {
       console.error('Error while adding Data:', error);
     }
@@ -129,11 +139,8 @@ export class RegistrationComponent {
   async getDataById(Id: string, collectionName: string) {
     try {
       console.log('here');
-      await this.userService
-        .getDataById(Id, collectionName)
-        .subscribe((data: any) => {
-          console.log(data, 'this is data by Id');
-        });
+      await this.userService.getDataById(Id, collectionName).subscribe((data: any) => {
+          console.log(data, 'this is data by Id');});
     } catch (error) {
       console.error(error, 'Show search by id failed');
     }
@@ -145,4 +152,57 @@ export class RegistrationComponent {
   openUser() {
     this.showUser = true;
   }
+
+
+// Pagination of Data
+
+loadUserData() {
+  this.loaderService.show();
+  this.userService.getPaginatedData('registration', this.pageSize, this.lastUserDoc).subscribe((data:any) => {
+    if (data.length) {
+      this.users = this.users.concat(data);
+      this.lastUserDoc = this.users[this.users.length - 1].Email;
+    }
+    console.log ('Users Data', data)
+    this.loaderService.hide();
+  }, e => {
+    console.log ('error', e)
+  });
+}
+
+// Load Fish Data
+
+loadFishingData() {
+  this.loaderService.show();
+  this.userService.getPaginatedData('fishing_data', this.pageSize, this.lastUserDoc).subscribe((data:any) => {
+    if (data.length) {
+      this.users = this.users.concat(data);
+      this.lastUserDoc = this.users[this.users.length - 1].Email;
+    }
+    console.log ('Fish Data data', data)
+    this.loaderService.hide();
+  }, e => {
+    console.log ('error', e)
+  });
+}
+
+
+
+// loadFishingData() {
+//   this.userService.getPaginatedData('fishing_data', this.pageSize, this.lastFishDoc).subscribe(data => {
+//     this.fishingData = this.fishingData.concat(data);
+//     this.lastFishDoc = data.length ? data[data.length - 1].id : this.lastFishDoc;
+//     this.apiResponseCounter++;
+//     this.checkAllResponsesReceived();
+//   });
+// }
+loadMoreUsers() {
+  this.usersPage++;
+  this.loadUserData();
+}
+
+// loadMoreFish() {
+//   this.fishPage++;
+//   this.loadFishingData();
+// }
 }
