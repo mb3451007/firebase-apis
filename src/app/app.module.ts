@@ -14,6 +14,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { QuillConfigModule } from 'ngx-quill';
 import { QuillModule } from 'ngx-quill';
+import { UpdateBlogComponent } from './update-blog/update-blog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import { QuillModule } from 'ngx-quill';
     UpdateFishDataComponent,
     LoaderComponent,
     BlogsComponent,
+    UpdateBlogComponent,
    
   ],
   imports: [

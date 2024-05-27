@@ -4,12 +4,14 @@ import { RegistrationComponent } from './registration/registration.component';
 import { UpdateDataComponent } from './update-data/update-data.component';
 import { UpdateFishDataComponent } from './update-fish-data/update-fish-data.component';
 import { BlogsComponent } from './blogs/blogs.component';
+import { UpdateBlogComponent } from './update-blog/update-blog.component';
 
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'blogs', component: BlogsComponent },
   { path: 'update-user/:id', component: UpdateDataComponent },
   { path: 'update-fish/:id', component: UpdateFishDataComponent },
+  { path: 'update-blog/:id', component: UpdateBlogComponent },
   { path: '', redirectTo: '/register', pathMatch: 'full' },
 ];
 

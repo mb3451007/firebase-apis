@@ -64,6 +64,7 @@ export class RegistrationComponent {
     this.userId = this.activeRoute.snapshot.paramMap.get('id');
     console.log(this.userId, 'User id for Delete Button');
     this.loadUserData();
+    this.loadFishingData();
 
     // Get Data from data base
 
@@ -158,7 +159,7 @@ export class RegistrationComponent {
 
 loadUserData() {
   this.loaderService.show();
-  this.userService.getPaginatedData('registration', this.pageSize, this.lastUserDoc).subscribe((data:any) => {
+  this.userService.getPaginatedData('registration', this.pageSize,'Email', this.lastUserDoc).subscribe((data:any) => {
     if (data.length) {
       this.users = this.users.concat(data);
       this.lastUserDoc = this.users[this.users.length - 1].Email;
@@ -174,10 +175,10 @@ loadUserData() {
 
 loadFishingData() {
   this.loaderService.show();
-  this.userService.getPaginatedData('fishing_data', this.pageSize, this.lastUserDoc).subscribe((data:any) => {
+  this.userService.getPaginatedData('fishing_data', this.pageSize,'location', this.lastUserDoc).subscribe((data:any) => {
     if (data.length) {
-      this.users = this.users.concat(data);
-      this.lastUserDoc = this.users[this.users.length - 1].Email;
+      this.fishingData = this.fishingData.concat(data);
+      this.lastUserDoc = this.fishingData[this.fishingData.length - 1].location;
     }
     console.log ('Fish Data data', data)
     this.loaderService.hide();
@@ -186,23 +187,13 @@ loadFishingData() {
   });
 }
 
-
-
-// loadFishingData() {
-//   this.userService.getPaginatedData('fishing_data', this.pageSize, this.lastFishDoc).subscribe(data => {
-//     this.fishingData = this.fishingData.concat(data);
-//     this.lastFishDoc = data.length ? data[data.length - 1].id : this.lastFishDoc;
-//     this.apiResponseCounter++;
-//     this.checkAllResponsesReceived();
-//   });
-// }
 loadMoreUsers() {
   this.usersPage++;
   this.loadUserData();
 }
 
-// loadMoreFish() {
-//   this.fishPage++;
-//   this.loadFishingData();
-// }
+loadMoreFish() {
+  this.fishPage++;
+  this.loadFishingData();
+}
 }

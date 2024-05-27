@@ -1,12 +1,14 @@
 <div class="container">
+  <!-- Notification -->
   <h3 *ngIf="showNotification" class="notification">Blog Saved Successfully</h3>
   
-  <div class="upload-container">
+  <!-- Editor and Upload Section -->
+  <div class="editor-upload-container">
     <div class="editor-container">
       <quill-editor [(ngModel)]="editorContent"></quill-editor>
     </div>
     
-    <div class="upload">
+    <div class="upload-container">
       <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none" />
       
       <div class="upload-icon" (click)="fileInput.click()">
@@ -17,10 +19,30 @@
       </div>
     </div>
     
-    <button class="btn btn-primary" (click)="saveBlog()">Save Blog</button>
-    
     <div *ngIf="imageUrl" class="image-preview">
       <img [src]="imageUrl" alt="Selected Image" />
     </div>
+    
+    <button class="btn btn-primary save-btn" (click)="saveBlog()">Save Blog</button>
+  </div>
+
+  <!-- Blogs Data Section -->
+  <div class="user-list-container">
+    <h2>Blogs Data</h2>
+    <ul>
+      <li *ngFor="let blog of blogs" class="blog-item">
+        <div class="blog-content">
+          <p [innerHtml]="blog.editorContent"></p>
+          <p>{{convertIntoDate(blog.createdAt)}}</p>
+          <img [src]="blog.imageUrl" alt="Blog Image" class="blog-image"/>
+        </div>
+        <div class="blog-actions">
+          <button class="btn btn-secondary" (click)="updateBlogData(blog.id)">Update Blog</button>
+          <button class="btn btn-danger" (click)="deleteBlog(blog.id, 'blogs')">Delete Blog</button>
+          <button class="btn btn-success" (click)="getBlogById(blog.id, 'blogs')">Show Blog</button>
+        </div>
+      </li>
+    </ul>
+    <button class="btn btn-warning load-more-btn" (click)="loadMoreBlogs()">Load More Blogs</button>
   </div>
 </div>

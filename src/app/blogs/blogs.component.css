@@ -1,50 +1,103 @@
 .container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: auto;
+  padding: 20px;
 }
 
 .notification {
-  color: #dc3545;
+  color: green;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.editor-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.editor-container {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .upload-container {
   display: flex;
   flex-direction: column;
-}
-
-.editor-container {
-  margin-bottom: 20px;
-}
-
-.upload {
-  display: flex;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .upload-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  margin-right: 10px;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.upload-icon h5 {
+  margin: 0;
 }
 
 .upload-icons {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-/* .image-preview img {
-  max-width: 100%;
-  height: auto;
-} */
 .image-preview img {
-  max-width: 200px; /* Adjust the maximum width as needed */
-  height: auto;
+  max-width: 100%;
+  max-height: 200px;
+  margin-bottom: 20px;
+}
+
+.save-btn {
+  margin-top: 10px;
+}
+
+.user-list-container {
+  margin-top: 30px;
+}
+
+.user-list-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.blog-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.blog-content {
+  text-align: center;
+}
+
+.blog-content p {
+  margin: 5px 0;
+}
+
+.blog-image {
+  max-width: 100%;
+  max-height: 150px;
+  margin-top: 10px;
+}
+
+.blog-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.load-more-btn {
+  display: block;
+  margin: 20px auto 0;
 }

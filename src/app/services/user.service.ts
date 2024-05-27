@@ -55,15 +55,15 @@ export class UserService {
   }
 
 
-    // Get paginated data from Firestore
-    getPaginatedData(collectionName: string, pageSize: number, lastDoc: any = null) {
+    // Get paginated data from Firestore for users 
+    getPaginatedData(collectionName: string, pageSize: number,orderByField: string, lastDoc: any = null) {
       console.log ('start after', lastDoc)
       if (lastDoc) {
-        return this.firestore.collection(collectionName, ref => ref.orderBy('Email').startAfter(lastDoc).limit(pageSize)).snapshotChanges().pipe(
+        return this.firestore.collection(collectionName, ref => ref.orderBy(orderByField).startAfter(lastDoc).limit(pageSize)).snapshotChanges().pipe(
           map(actions => actions.map(this.documentToDomainObject))
         );
       } else {
-        return this.firestore.collection(collectionName, ref => ref.orderBy('Email').limit(pageSize)).snapshotChanges().pipe(
+        return this.firestore.collection(collectionName, ref => ref.orderBy(orderByField).limit(pageSize)).snapshotChanges().pipe(
           map(actions => actions.map(this.documentToDomainObject))
         );
       }
