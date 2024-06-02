@@ -68,4 +68,12 @@ export class UserService {
         );
       }
     }
+    
+    // Filters
+
+    filterData(collectionName: string, field: string, filterValue: string): Observable<any> {
+      return this.firestore.collection<any>(collectionName, ref => ref.where(field, '>=', filterValue).where(field, '<=', filterValue + '\uf8ff')).snapshotChanges().pipe(
+        map(actions => actions.map(this.documentToDomainObject))
+      );
+    }
 }

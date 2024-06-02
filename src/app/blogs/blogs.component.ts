@@ -98,6 +98,7 @@ async deleteBlog(blogId: string, collectionName: string) {
   try {
     await this.userService.deleteData(blogId, collectionName);
     console.log('blog Deleted successfully');
+    this.loadBlogsData();
   } catch (error) {
     console.error('Issue for Deleting blog', Error);
   }

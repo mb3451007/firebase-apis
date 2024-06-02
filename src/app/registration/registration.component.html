@@ -106,6 +106,13 @@
       </ul>
       <button (click)="loadMoreUsers()">Load More Users</button>
       </div>
+
+      <div>
+        <label for="user-filter">Filter Users by Email:</label>
+        <input type="text" id="user-filter" (input)="filterUsers($event)" />
+      </div>
+
+
     <div class="user-list-container">
       <h2>Fishing Data</h2>
       <ul>
@@ -118,6 +125,12 @@
       </ul>
       <!-- <button (click)="loadMoreFish()">Load More Fish</button> -->
     </div>
+    <!-- Fish Filter -->
+<div>
+  <label for="fish-filter">Filter Fish by Location:</label>
+  <input type="text" id="fish-filter" (input)="filterFish($event)" />
+</div>
+
 </div>
 
 <button routerLink="/blogs">Click here for Blogs</button>

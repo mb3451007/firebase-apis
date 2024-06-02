@@ -95,6 +95,7 @@ export class RegistrationComponent {
       this.userService.addData('registration', this.registrationForm.value);
       console.log('User data added', this.registrationForm.value);
       this.registrationForm.reset();
+      // this.loadUserData(true);
     } catch (error) {
       console.error('Error while adding Data:', error);
     }
@@ -104,6 +105,8 @@ export class RegistrationComponent {
     try {
       this.userService.addData('fishing_data', this.fishForm.value);
       console.log('User data added', this.fishForm.value);
+      this.fishForm.reset();
+      // this.loadFishingData(true);
     } catch (error) {
       console.error('Error while adding Data:', error);
     }
@@ -131,6 +134,8 @@ export class RegistrationComponent {
     try {
       await this.userService.deleteData(userId, collectionName);
       console.log('User Deleted successfully');
+      this.loadUserData(true);
+      this.loadFishingData(true);
     } catch (error) {
       console.error('Issue for Deleting User', Error);
     }
@@ -157,7 +162,11 @@ export class RegistrationComponent {
 
 // Pagination of Data
 
-loadUserData() {
+loadUserData(clearData: boolean = false) {
+  if (clearData) {
+    this.users = [];
+    this.lastUserDoc = null;
+  }
   this.loaderService.show();
   this.userService.getPaginatedData('registration', this.pageSize,'Email', this.lastUserDoc).subscribe((data:any) => {
     if (data.length) {
@@ -173,7 +182,11 @@ loadUserData() {
 
 // Load Fish Data
 
-loadFishingData() {
+loadFishingData(clearData: boolean = false) {
+  if (clearData) {
+    this.users = [];
+    this.lastUserDoc = null;
+  }
   this.loaderService.show();
   this.userService.getPaginatedData('fishing_data', this.pageSize,'location', this.lastUserDoc).subscribe((data:any) => {
     if (data.length) {
@@ -196,4 +209,34 @@ loadMoreFish() {
   this.fishPage++;
   this.loadFishingData();
 }
+
+// Filters Users
+filterUsers(event: Event) {
+  const inputElement = event.target as HTMLInputElement;
+  const filterValue = inputElement.value;
+  this.loaderService.show();
+  this.userService.filterData('registration', 'Email', filterValue).subscribe((data: any) => {
+    this.users = data;
+    console.log('Filtered Users Data', data);
+    this.loaderService.hide();
+  }, e => {
+    console.log('error', e);
+    this.loaderService.hide();
+  });
+}
+
+filterFish(event: Event) {
+  const inputElement = event.target as HTMLInputElement;
+  const filterValue = inputElement.value;
+  this.loaderService.show();
+  this.userService.filterData('fishing_data', 'location', filterValue).subscribe((data: any) => {
+    this.fishingData = data;
+    console.log('Filtered Fish Data', data);
+    this.loaderService.hide();
+  }, e => {
+    console.log('error', e);
+    this.loaderService.hide();
+  });
+}
+
 }

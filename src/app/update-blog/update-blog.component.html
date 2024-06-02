@@ -1,23 +1,25 @@
 <div class="container">
-    <h3 *ngIf="showNotification" class="notification">Blog Saved Successfully</h3>
-    
-    <div class="upload-container">
-      <div class="editor-container">
-        <quill-editor [(ngModel)]="editorContent"></quill-editor>
-      </div>
-      
-      <div class="upload">
+  <h3 *ngIf="showNotification" class="notification">Blog Updated Successfully</h3>
+
+  <div class="update-container">
+    <div class="editor-container">
+      <quill-editor [(ngModel)]="editorContent"></quill-editor>
+    </div>
+
+    <div class="upload-section">
+      <div class="upload-icon" (click)="fileInput.click()">
         <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none" />
-        
-        <div class="upload-icon" (click)="fileInput.click()">
-          <h5>Upload Image</h5>
-          <svg class="upload-icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-            <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 408c0 13.3-10.7 24-24 24s-24-10.7-24-24V305.9l-31 31c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l72-72c9.4-9.4 24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-31-31V408z"/>
-          </svg>
-        </div>
+        <svg class="upload-icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+          <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 408c0 13.3-10.7 24-24 24s-24-10.7-24-24V305.9l-31 31c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l72-72c9.4-9.4 24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-31-31V408z"/>
+        </svg>
+        <h5>Update Image</h5>
       </div>
+
       <div *ngIf="imageUrl" class="image-preview">
         <img [src]="imageUrl" alt="Selected Image" />
       </div>
-      <button class="btn btn-primary" (click)="updateBlog()">Update Blog</button>
     </div>
+
+    <button class="btn btn-primary" (click)="updateBlog()">Update Blog</button>
+  </div>
+</div>
