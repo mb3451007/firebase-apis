@@ -55,8 +55,8 @@
   }
   
   .image-preview img {
-    width: 100px;
-    height: 100px;
+    width: 600px;
+    height: auto;
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid #ccc;

@@ -3,8 +3,9 @@
 
   <div class="update-container">
     <div class="editor-container">
-      <quill-editor [(ngModel)]="editorContent"></quill-editor>
+      <quill-editor [(ngModel)]="_editorContent"></quill-editor>
     </div>
+    <h3 [innerHTML]="getBlog()"></h3>
 
     <div class="upload-section">
       <div class="upload-icon" (click)="fileInput.click()">
@@ -22,4 +23,3 @@
 
     <button class="btn btn-primary" (click)="updateBlog()">Update Blog</button>
   </div>
-</div>

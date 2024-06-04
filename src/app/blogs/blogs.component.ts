@@ -4,6 +4,7 @@ import firebase from 'firebase/compat/app';
 import { LoaderService } from '../services/loader.service';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blogs',
@@ -18,14 +19,14 @@ export class BlogsComponent implements OnInit ,OnDestroy {
   lastUserDoc: any = null;
   lastFishDoc: any = null;
   blogs: any[] = [];
-  editorContent: string = '';
+  editorContent: any;
   html = '';
   showNotification:boolean=false
   description:string="";
   imageUrl: string | ArrayBuffer | null = null;
   showImage = false;
   createdAt: any;
-constructor(private fireStore:AngularFirestore,private loaderService:LoaderService,private  userService:UserService,private router:Router,private activeRoute:ActivatedRoute){}
+constructor(private fireStore:AngularFirestore,private loaderService:LoaderService,private  userService:UserService,private router:Router,private activeRoute:ActivatedRoute,private sanitizer: DomSanitizer){}
 ngOnInit(){
 this.blogId=this.activeRoute.snapshot.paramMap.get('id')
   this.loadBlogsData();
@@ -44,11 +45,11 @@ ngOnDestroy(): void {
     }
   }
 
-  convertIntoDate(timeStamp: any) {
-    const milliseconds = (timeStamp.seconds * 1000) + (timeStamp.nanoseconds / 1000000);
-    return new Date(milliseconds);
+  // convertIntoDate(timeStamp: any) {
+  //   const milliseconds = (timeStamp.seconds * 1000) + (timeStamp.nanoseconds / 1000000);
+  //   return new Date(milliseconds);
 
-  }
+  // }
 
   toggleFullscreen() {
     this.showImage = !this.showImage;
@@ -56,20 +57,20 @@ ngOnDestroy(): void {
   saveBlog() {
     if (!this.editorContent || !this.imageUrl) {
       console.error("Description or image not provided.");
-      return;
-      
+      return; 
     }
     else{
     // save Created in Data base too
     this.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-
   // Add the blog to the database
   this.fireStore.collection('blogs').add({editorContent: this.editorContent,imageUrl: this.imageUrl,createdAt:this.createdAt}).then(() => {
-      this.showNotification=true;
+
+    this.showNotification=true;
     // Reset fields after saving
     this.editorContent = '';
     this.imageUrl = null;
     this.createdAt = null;
+    // this.loadBlogsData();
   }).catch((error:any) => {
     console.error("Error saving blog:", error);
   });
@@ -80,7 +81,11 @@ ngOnDestroy(): void {
 
 // Load Fish Data
 
-loadBlogsData() {
+loadBlogsData(reset: boolean = false) {
+  if (reset) {
+    this.blogs = [];
+    this.lastUserDoc = null;
+  }
   this.userService.getPaginatedData('blogs', this.pageSize,'createdAt', this.lastUserDoc).subscribe((data:any) => {
     if (data.length) {
       this.blogs = this.blogs.concat(data);
@@ -122,5 +127,11 @@ async getBlogById(blogId: string, collectionName: string) {
   loadMoreBlogs(){
     this.loadBlogsData();
   }
+
+    
+      getBlog(content: string): any {
+        return this.sanitizer.bypassSecurityTrustHtml(content)
+      }
+ 
 }
 

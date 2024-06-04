@@ -32,8 +32,9 @@
     <ul>
       <li *ngFor="let blog of blogs" class="blog-item">
         <div class="blog-content">
-          <p [innerHtml]="blog.editorContent"></p>
-          <p>{{convertIntoDate(blog.createdAt)}}</p>
+          <div [innerHTML]="getBlog(blog.editorContent)"></div>
+          <!-- <p>{{convertIntoDate(blog.createdAt)}}</p> -->
+          <p>{{(blog.createdAt)}}</p>
           <img [src]="blog.imageUrl" alt="Blog Image" class="blog-image"/>
         </div>
         <div class="blog-actions">
