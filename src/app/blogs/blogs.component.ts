@@ -28,7 +28,7 @@ export class BlogsComponent implements OnInit ,OnDestroy {
   createdAt: any;
 constructor(private fireStore:AngularFirestore,private loaderService:LoaderService,private  userService:UserService,private router:Router,private activeRoute:ActivatedRoute,private sanitizer: DomSanitizer){}
 ngOnInit(){
-this.blogId=this.activeRoute.snapshot.paramMap.get('id')
+  this.blogId=this.activeRoute.snapshot.paramMap.get('id')
   this.loadBlogsData();
 }
 ngOnDestroy(): void {
@@ -45,11 +45,6 @@ ngOnDestroy(): void {
     }
   }
 
-  // convertIntoDate(timeStamp: any) {
-  //   const milliseconds = (timeStamp.seconds * 1000) + (timeStamp.nanoseconds / 1000000);
-  //   return new Date(milliseconds);
-
-  // }
 
   toggleFullscreen() {
     this.showImage = !this.showImage;
@@ -62,15 +57,12 @@ ngOnDestroy(): void {
     else{
     // save Created in Data base too
     this.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-  // Add the blog to the database
   this.fireStore.collection('blogs').add({editorContent: this.editorContent,imageUrl: this.imageUrl,createdAt:this.createdAt}).then(() => {
-
     this.showNotification=true;
-    // Reset fields after saving
     this.editorContent = '';
     this.imageUrl = null;
     this.createdAt = null;
-    // this.loadBlogsData();
+    this.loadBlogsData();
   }).catch((error:any) => {
     console.error("Error saving blog:", error);
   });
@@ -103,6 +95,7 @@ async deleteBlog(blogId: string, collectionName: string) {
   try {
     await this.userService.deleteData(blogId, collectionName);
     console.log('blog Deleted successfully');
+    this.blogs=this.blogs.filter(blog=>blog.is!==blog.id)
     this.loadBlogsData();
   } catch (error) {
     console.error('Issue for Deleting blog', Error);
@@ -129,9 +122,9 @@ async getBlogById(blogId: string, collectionName: string) {
   }
 
     
-      getBlog(content: string): any {
-        return this.sanitizer.bypassSecurityTrustHtml(content)
-      }
+  getBlog(content: string): any {
+   return this.sanitizer.bypassSecurityTrustHtml(content)
+  }
  
 }
 

@@ -13,6 +13,8 @@ import { Users } from '../user.model';
 })
 export class UserService {
   private collectionName = 'fishing_data';
+  private blogsName = 'blogs';
+  private carName = 'car';
   private tableName = 'registration';
   constructor(private firestore: AngularFirestore) {}
 
@@ -54,17 +56,24 @@ export class UserService {
     return this.firestore.collection(collectionName).doc(id).get().pipe(map((actions) => {return actions.data()}))
   }
 
-
     // Get paginated data from Firestore for users 
     getPaginatedData(collectionName: string, pageSize: number,orderByField: string, lastDoc: any = null) {
       console.log ('start after', lastDoc)
       if (lastDoc) {
-        return this.firestore.collection(collectionName, ref => ref.orderBy(orderByField).startAfter(lastDoc).limit(pageSize)).snapshotChanges().pipe(
-          map(actions => actions.map(this.documentToDomainObject))
+        return this.firestore.collection(collectionName, ref => ref.orderBy(orderByField).startAfter(lastDoc).limit(pageSize)).get().pipe(
+          map(actions => actions.docs.map(a => {
+            const obj: any = a.data();
+            obj.id = a.id;
+            return obj
+          }))
         );
       } else {
-        return this.firestore.collection(collectionName, ref => ref.orderBy(orderByField).limit(pageSize)).snapshotChanges().pipe(
-          map(actions => actions.map(this.documentToDomainObject))
+        return this.firestore.collection(collectionName, ref => ref.orderBy(orderByField).limit(pageSize)).get().pipe(
+          map(actions => actions.docs.map(a => {
+            const obj: any = a.data();
+            obj.id = a.id;
+            return obj
+          }))
         );
       }
     }

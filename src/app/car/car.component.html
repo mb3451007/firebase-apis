@@ -1,0 +1,84 @@
+<div class="container mt-5">
+  <h5 class="text-danger" *ngIf="showError">Fill all Required Values</h5>
+  <form >
+    <div class="form-group" required>
+      <label for="make">Make</label>
+      <select id="make" class="form-control" [(ngModel)]="selectedMake" required (change)="onMakeChange()" name="make">
+        <option *ngFor="let make of makes" [value]="make">{{ make }}</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-3" required>
+      <label for="model">Model</label>
+      <select id="model" class="form-control" [(ngModel)]="selectedModel" required name="model">
+        <option *ngFor="let model of models[selectedMake]" [value]="model">{{ model }}</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="year">Year</label>
+      <select id="year" class="form-control" [(ngModel)]="selectedYear" required name="year">
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="imageUpload">Upload Image</label>
+      <input type="file" class="form-control-file" id="imageUpload" (change)="onFileChange($event)">
+    </div>
+
+    <div class="form-group mt-3">
+      <label>Is Accidented</label><br>
+      <div class="form-check form-check-inline" >
+        <input class="form-check-input" type="radio" id="accidentedYes" required value="Yes" [(ngModel)]="isAccidented" name="isAccidented" required>
+        <label class="form-check-label" for="accidentedYes">Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="accidentedNo" value="No" [(ngModel)]="isAccidented" name="isAccidented">
+        <label class="form-check-label" for="accidentedNo">No</label>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="Insured" [(ngModel)]="Insured" name="Insured">
+        <label class="form-check-label" for="Insured">Insured</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="token_Paid" [(ngModel)]="token_Paid" name="token_Paid">
+        <label class="form-check-label" for="token_Paid">Token Paid</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="total_Genuine" [(ngModel)]="total_Genuine" name="total_Genuine">
+        <label class="form-check-label" for="total_Genuine">Total Genuine</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="firstOwner" [(ngModel)]="firstOwner" name="firstOwner">
+        <label class="form-check-label" for="firstOwner">1st Owner</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3" (click)="onSubmit()">Submit</button>
+  </form>
+</div>
+
+
+<!-- Car Data -->
+<div class="car-data-container" *ngFor="let car of cars">
+  <div class="car-data">
+    <p><strong>Created At:</strong> {{car.createdAt}}</p>
+    <p><strong>Make:</strong> {{car.make}}</p>
+    <p><strong>Model:</strong> {{car.model}}</p>
+    <p><strong>Years:</strong> {{car.year}}</p>
+    <p><img [src]="car.image" alt="car-pic" class="car-image"></p>
+    <p><strong>Accidented:</strong> {{car.isAccidented}}</p>
+    <p><strong>Insured:</strong> {{car.Insured}}</p>
+    <p><strong>Token Paid:</strong> {{car.token_Paidd}}</p>
+    <p><strong>Total Genuine:</strong> {{car.total_Genuinee}}</p>
+    <p><strong>First Owner:</strong> {{car.firstOwner}}</p>
+    <button class="btn btn-secondary" (click)="updateCarData(car.id)">Update Car</button>
+    <button class="btn btn-danger" (click)="deleteCar(car.id, 'car')">Delete Car</button>
+    <button class="btn btn-success" (click)="getCarById(car.id, 'car')">Show Car</button>
+  </div>
+</div>
+<button class="btn btn-warning load-more-btn" (click)="loadMoreCars()">Load More Cars</button>

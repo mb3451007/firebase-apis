@@ -95,7 +95,7 @@ export class RegistrationComponent {
       this.userService.addData('registration', this.registrationForm.value);
       console.log('User data added', this.registrationForm.value);
       this.registrationForm.reset();
-      // this.loadUserData(true);
+      this.loadUserData(true);
     } catch (error) {
       console.error('Error while adding Data:', error);
     }
@@ -106,7 +106,7 @@ export class RegistrationComponent {
       this.userService.addData('fishing_data', this.fishForm.value);
       console.log('User data added', this.fishForm.value);
       this.fishForm.reset();
-      // this.loadFishingData(true);
+      this.loadFishingData(true);
     } catch (error) {
       console.error('Error while adding Data:', error);
     }
@@ -165,6 +165,7 @@ export class RegistrationComponent {
 loadUserData(clearData: boolean = false) {
   if (clearData) {
     this.users = [];
+    console.log(this.users,'checking multiple calls');
     this.lastUserDoc = null;
   }
   this.loaderService.show();
@@ -195,7 +196,7 @@ loadFishingData(clearData: boolean = false) {
     }
     console.log ('Fish Data data', data)
     this.loaderService.hide();
-  }, e => {
+  }, (e: any) => {
     console.log ('error', e)
   });
 }

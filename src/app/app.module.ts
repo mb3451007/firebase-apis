@@ -15,6 +15,8 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { QuillConfigModule } from 'ngx-quill';
 import { QuillModule } from 'ngx-quill';
 import { UpdateBlogComponent } from './update-blog/update-blog.component';
+import { CarComponent } from './car/car.component';
+import { CarUpdateComponent } from './car-update/car-update.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +26,8 @@ import { UpdateBlogComponent } from './update-blog/update-blog.component';
     LoaderComponent,
     BlogsComponent,
     UpdateBlogComponent,
+    CarComponent,
+    CarUpdateComponent,
    
   ],
   imports: [
