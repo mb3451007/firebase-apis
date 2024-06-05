@@ -57,9 +57,9 @@ export class CarUpdateComponent implements OnInit {
             model: car.model,
             year: car.year,
             isAccidented: car.isAccidented,
-            total_Genuine: car.total_Genuinee,
+            total_Genuine: car.total_Genuine,
             firstOwner: car.firstOwner,
-            token_Paid: car.token_Paidd,
+            token_Paid: car.token_Paid,
             Insured: car.Insured
           });
           this.image = car.image;
@@ -92,9 +92,9 @@ export class CarUpdateComponent implements OnInit {
       model: this.carForm.value.model,
       year: this.carForm.value.year,
       isAccidented: this.carForm.value.isAccidented,
-      total_Genuinee: this.carForm.value.total_Genuine,
+      total_Genuine: this.carForm.value.total_Genuine,
       firstOwner: this.carForm.value.firstOwner,
-      token_Paidd: this.carForm.value.token_Paid,
+      token_Paid: this.carForm.value.token_Paid,
       Insured: this.carForm.value.Insured,
       image: this.image,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
