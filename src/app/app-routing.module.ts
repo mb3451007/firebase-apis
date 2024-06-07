@@ -7,11 +7,13 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { UpdateBlogComponent } from './update-blog/update-blog.component';
 import { CarComponent } from './car/car.component';
 import { CarUpdateComponent } from './car-update/car-update.component';
+import { MatTreeComponent } from './mat-tree/mat-tree.component';
 
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'blogs', component: BlogsComponent },
   { path: 'car', component: CarComponent },
+  { path: 'mat-tree', component: MatTreeComponent },
   { path: 'update-user/:id', component: UpdateDataComponent },
   { path: 'update-fish/:id', component: UpdateFishDataComponent },
   { path: 'update-blog/:id', component: UpdateBlogComponent },

@@ -1,0 +1,17 @@
+mat-tree-node {
+  display: flex;
+  align-items: center;
+}
+
+mat-icon {
+  font-size: 16px;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}

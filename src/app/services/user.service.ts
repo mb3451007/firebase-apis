@@ -7,11 +7,14 @@ import { Observable, map } from 'rxjs';
 import { User } from 'firebase/auth';
 import { fish } from '../fish.model';
 import { Users } from '../user.model';
+import { FoodNode } from '../mat-tree/tree.model';
+import { TREE_DATA } from '../mat-tree/tree-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private treeDataName = 'tree_data';
   private collectionName = 'fishing_data';
   private blogsName = 'blogs';
   private carName = 'car';
@@ -85,4 +88,18 @@ export class UserService {
         map(actions => actions.map(this.documentToDomainObject))
       );
     }
+    
+    // Tree data
+  saveTreeData(treeData: FoodNode[]): Promise<void> {
+    return this.firestore.collection(this.collectionName).doc('data').set({ data: treeData });
+  }
+
+  loadTreeData(): Observable<FoodNode[]> {
+    return this.firestore.collection(this.collectionName).doc('data').get().pipe(
+      map(doc => {
+        const data = doc.data() as { data: FoodNode[] } | undefined;
+        return data ? data.data : TREE_DATA;
+      })
+    );
+  }
 }

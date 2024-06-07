@@ -17,6 +17,15 @@ import { QuillModule } from 'ngx-quill';
 import { UpdateBlogComponent } from './update-blog/update-blog.component';
 import { CarComponent } from './car/car.component';
 import { CarUpdateComponent } from './car-update/car-update.component';
+import { MatTreeComponent } from './mat-tree/mat-tree.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +37,7 @@ import { CarUpdateComponent } from './car-update/car-update.component';
     UpdateBlogComponent,
     CarComponent,
     CarUpdateComponent,
+    MatTreeComponent,
    
   ],
   imports: [
@@ -38,8 +48,13 @@ import { CarUpdateComponent } from './car-update/car-update.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    QuillModule.forRoot()
-    
+    QuillModule.forRoot(),
+    BrowserAnimationsModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule,
+    DragDropModule
+
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
